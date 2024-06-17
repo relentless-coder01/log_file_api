@@ -120,4 +120,5 @@ Note: All the configuration files are included in this repository
 /postman/Log File API.postman_collection.json
 ```
 
-* Design 
+* Design
+[![API docs](docs/Sequence_Diagram.png)](https://github.com/relentless-coder01/log_file_api/blob/main/docs/Sequence_Diagram.png)
