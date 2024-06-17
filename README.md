@@ -126,5 +126,6 @@ Note: All the configuration files are included in this repository
 10. UI
 
 Interact with the API using the UI
-()
+(https://github.com/relentless-coder01/log_file_api/blob/main/images/ui_page1.jpg)
+(https://github.com/relentless-coder01/log_file_api/blob/main/images/ui_page2.jpg)
 
