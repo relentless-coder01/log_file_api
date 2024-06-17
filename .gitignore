@@ -1,2 +1,4 @@
 unix_home/**
 .venv/**
+.idea/**
+__pycache__/**
