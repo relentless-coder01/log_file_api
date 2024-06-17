@@ -104,7 +104,3 @@ def get_data(request: Request, filename: str, n: Optional[int] = None, keyword: 
                             content=jsonable_encoder(
                                 Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                                          message="Internal server error.")))
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="localhost", port=8000)
