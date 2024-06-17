@@ -19,7 +19,7 @@ Create and setup a python environment using Docker to deploy FastAPI application
 ## Steps
 1. Clone github repository
 
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/relentless-coder01/log_file_api.git
 
 2. Install Docker by following the instructions
 
