@@ -125,7 +125,9 @@ Note: All the configuration files are included in this repository
 
 10. UI
 
-Interact with the API using the UI
+Interact with the API using the UI: http://localhost:8000/static/index.html
+
 ![Alt text](https://github.com/relentless-coder01/log_file_api/blob/main/images/ui_page1.jpg)
+
 ![Alt text](https://github.com/relentless-coder01/log_file_api/blob/main/images/ui_page2.jpg)
 
