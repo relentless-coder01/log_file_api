@@ -1,0 +1,73 @@
+input[type=text], input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#filename, #n, #keyword {
+    width: 25%
+}
+#n {
+    margin-left: 25px;
+}
+
+button {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#load-btn {
+  width: 25%;
+  background-color: #4CAF50;
+  font-size: large;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+#log-lines {
+    text-align: center;
+    color: chocolate;
+    font-size: x-large;
+}
+#log-text {
+    border: 1px solid gray;
+    padding: 20px;
+}
+.log-line {
+    padding-bottom: 5px;
+}
+.next-page-btn {
+    float: right;
+    width: 10%;
+    background-color: #389bd9;
+    font-size: medium;
+}
+.prev-page-btn {
+    float: left;
+    width: 10%;
+    background-color: #389bd9;
+    font-size: medium;
+}
+#pagination {
+    overflow: hidden;
+}
+#page-num {
+    text-align: center;
+    font-size: large;
+    color: darkblue;
+    margin-bottom: 5px;
+}

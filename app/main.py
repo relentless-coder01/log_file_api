@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 import time
 import json
+from fastapi.staticfiles import StaticFiles
 
 from read_file import ReadFile
 from search_file import SearchFile
@@ -16,6 +17,9 @@ from util import *
 from models import *
 
 app = FastAPI()
+
+# Mount the static files directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
