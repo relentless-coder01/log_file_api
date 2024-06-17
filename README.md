@@ -113,9 +113,11 @@ Note: All the configuration files are included in this repository
 
 9. Documentation:
 
-API Specifications: https://github.com/relentless-coder01/log_file_api/blob/main/docs/Log%20File%20API%20Specification.docx
+* API Specifications: https://github.com/relentless-coder01/log_file_api/blob/main/docs/Log%20File%20API%20Specification.docx
 
-Test Cases: 
+* Test Cases: 
 ```
 /postman/Log File API.postman_collection.json
 ```
+
+* Design 
