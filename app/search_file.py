@@ -49,7 +49,6 @@ class SearchFile:
                 print(f"Initial file pointer at: {str(fp.tell())}")
                 lines = []
                 residue = ''
-                # O(n) or O(bytes_read / chunk_size)
                 while bytes_left > 0 and len(lines) < PAGE_SIZE and total_lines_read < n:
                     lines_to_append = []
                     # Determine chunks to read and seek pointer
@@ -62,10 +61,10 @@ class SearchFile:
                     fp.seek(-len(chunk), 1)
                     # Split the lines
                     chunk_lines = chunk.splitlines(keepends=True)
-                    # Assume first part of the chunk as residue, we dont know until we read above it
+                    # Assume first part of the chunk as residue, we don't know until we read above it
                     if bytes_left > 0:
                         residue = chunk_lines.pop(0)
-                    if len(residue) >= LINE_SIZE:  # len(chunk_lines) <= 0:
+                    if len(residue) >= LINE_SIZE:
                         # Break the residue into lines based on our predefined upper limit for Line size
                         residue_lines = [residue[0:i] if i - LINE_SIZE < 0 else residue[i - LINE_SIZE:i] for i in range(len(residue), 0, -LINE_SIZE)][::-1]
                         if len(residue_lines) > 1:
@@ -98,6 +97,8 @@ class SearchFile:
                     self.store_metadata(metadata)
                 else:
                     more_lines = False
+                print(f"# Lines for Page {str(page)}: {str(len(lines))}")
                 return lines, more_lines
         except FileNotFoundError as e:
+            print("Exception: File not found!")
             return [], False

@@ -84,6 +84,7 @@ def get_data(request: Request, filename: str, n: Optional[int] = None, keyword: 
                 try:
                     position = json.loads(mf.read())[get_page_key(page)]
                 except KeyError as ke:
+                    print("Exception: Page metadata not found!")
                     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                                         content=jsonable_encoder(
                                             Response(status=status.HTTP_404_NOT_FOUND,

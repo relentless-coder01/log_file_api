@@ -40,7 +40,6 @@ class ReadFile:
                 print(f"Initial file pointer at: {str(fp.tell())}")
                 lines = []
                 residue = ''
-                # O(bytes read for the page)
                 while bytes_left > 0 and len(lines) < PAGE_SIZE and total_lines_read < n:
                     lines_to_append = []
                     # Determine chunks to read and seek pointer
@@ -53,7 +52,7 @@ class ReadFile:
                     fp.seek(-len(chunk), 1)
                     # Split the lines
                     chunk_lines = chunk.splitlines(keepends=True)
-                    # Assume first part of the chunk as residue, we dont know until we read above it
+                    # Assume first part of the chunk as residue, we don't know until we read above it
                     if bytes_left > 0:
                         residue = chunk_lines.pop(0)
                     if len(residue) >= LINE_SIZE:
@@ -83,6 +82,8 @@ class ReadFile:
                     self.store_metadata(metadata)
                 else:
                     more_lines = False
+                print(f"# Lines for Page {str(page)}: {str(len(lines))}")
                 return lines, more_lines
         except FileNotFoundError as e:
+            print("Exception: File not found!")
             return [], False
