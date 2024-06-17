@@ -104,4 +104,13 @@ services:
 ```
 docker-compose up -d --build
 ```
+
+8. Access the API at
+
+http://localhost:8000/api/v1/logs
+
 Note: All the configuration files are included in this repository
+
+9. Documentation:
+
+API Specifications: 

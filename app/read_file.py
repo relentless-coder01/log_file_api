@@ -1,6 +1,6 @@
 import os
 import json
-from main.config import *
+from config import *
 from util import *
 
 class ReadFile:

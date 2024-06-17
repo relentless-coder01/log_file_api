@@ -11,7 +11,7 @@ import json
 
 from read_file import ReadFile
 from search_file import SearchFile
-from main.config import *
+from config import *
 from util import *
 from models import *
 
@@ -46,8 +46,11 @@ def construct_url(request: Request, filename: str, n: int, keyword: str, page: i
 def get_data(request: Request, filename: str, n: Optional[int] = None, keyword: Optional[str] = None,
              page: Optional[int] = 1):
     """
-    Endpoint to fetch paginated results from a large file.
-    - page: Page number
+    Endpoint to fetch log lines.
+    - filename: (String) File name/ File path of the log file inside the ‘/var/log/’ directory.
+    - n: (Integer) The last number of lines or lines with keyword (if keyword specified) to be returned
+    - keyword: (String) The keyword or phrase to search for within the log file.
+    - page: (Integer) Page number for pagination
     """
     print('Request..........')
     print(f'filename: {filename}')

@@ -1,7 +1,7 @@
 import os
 import json
 import re
-from main.config import *
+from config import *
 from util import *
 
 class SearchFile:
