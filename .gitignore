@@ -3,3 +3,4 @@ unix_home/**
 .idea/**
 __pycache__/**
 app/__pycache__/**
+metadata/**

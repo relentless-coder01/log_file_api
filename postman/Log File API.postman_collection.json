@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "d9c9416c-20b6-4842-8736-5a696235d8e4",
+		"name": "Log File API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26873319"
+	},
+	"item": [
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Keyword in first line",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?keyword=line 1&filename=file3.log",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "line 1"
+								},
+								{
+									"key": "n",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "filename",
+									"value": "file3.log"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search file larger than 1GB",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=large/amz_reviews/train.csv&keyword=Amazing&n=40",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "filename",
+									"value": "large/amz_reviews/train.csv"
+								},
+								{
+									"key": "keyword",
+									"value": "Amazing"
+								},
+								{
+									"key": "n",
+									"value": "40"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search file larger than 1GB- keyword in first line",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=large/amz_reviews/train.csv&keyword=Stuning&n=40",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "filename",
+									"value": "large/amz_reviews/train.csv"
+								},
+								{
+									"key": "keyword",
+									"value": "Stuning"
+								},
+								{
+									"key": "n",
+									"value": "40"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search a phrase",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=file3.log&keyword=it is",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "12",
+									"disabled": true
+								},
+								{
+									"key": "filename",
+									"value": "file3.log"
+								},
+								{
+									"key": "keyword",
+									"value": "it is"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Read File",
+			"item": [
+				{
+					"name": "Read file content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain Page with  value 1\", () => {\r",
+									"  pm.expect(jsonData.page).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('Response should contain 10 lines ', () => {\r",
+									"    pm.expect(jsonData.data.length).to.equal(10);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=file3.log",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "filename",
+									"value": "file3.log"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read file larger than 1GB",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=large/amz_reviews/train.csv",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "filename",
+									"value": "large/amz_reviews/train.csv"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Validation Errors",
+			"item": [
+				{
+					"name": "Invalid Request (Missing filename)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"  pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains errors\",() => {\r",
+									"  pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Error contains missing filename', () => {\r",
+									"    pm.expect(jsonData.errors[0].field_name).to.equal(\"filename\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Error contains missing filename', () => {\r",
+									"    pm.expect(jsonData.errors[0].message).to.equal(\"Field required\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Request (invalid n)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"  pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains errors\",() => {\r",
+									"  pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Error contains missing filename', () => {\r",
+									"    pm.expect(jsonData.errors[0].field_name).to.equal(\"n\");\r",
+									"});\r",
+									"pm.test('Error contains missing filename', () => {\r",
+									"    pm.expect(jsonData.errors[0].message).to.equal(\"Input should be a valid integer, unable to parse string as an integer\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=file3.log&n=invalid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "filename",
+									"value": "file3.log"
+								},
+								{
+									"key": "n",
+									"value": "invalid"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"  pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains status\",() => {\r",
+									"  pm.expect(pm.response.text()).to.include(\"status\");\r",
+									"});\r",
+									"\r",
+									"pm.test('Error contains missing filename', () => {\r",
+									"    pm.expect(jsonData.message).to.equal(\"File not found.\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/logs?filename=abc.xyz",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "filename",
+									"value": "abc.xyz"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
