@@ -28,14 +28,76 @@ https://docs.docker.com/engine/install/ubuntu/
 3. Create Dockerfile
 
 This file contains the configuration for docker. Pulls base image, installs dependencies and runs Gunicorn (Python WSGI server)
+```
+# Dockerfile
+FROM python:3.10-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . /app/
+
+# Run Gunicorn
+CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000"]
+```
 
 4. Create nginx.conf
 
 Create a file nginx/nginx.conf. Nginx is the web server / reverse proxy.
 
+```
+events {}
+
+http {
+    upstream app {
+        server web:80;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://app;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+```
+
 6. Create docker-compose.yaml
 
 This file builds the docker image.
+```
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - nginx
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+```
 
 7. Navigate to the project diretory. Build and run your application
 
