@@ -1,6 +1,6 @@
 # HOME_DIR = "../unix_home/"
-HOME_DIR = "../home/"
-LOG_ROOT_DIR = HOME_DIR + "var/log/"
+HOME_DIR = "../"
+LOG_ROOT_DIR = "/var/log/"
 
 METADATA_DIR = "../metadata/"
 
