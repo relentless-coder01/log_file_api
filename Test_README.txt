@@ -37,3 +37,6 @@ host_ip:8000/api/v1/logs
 
 # Access the UI
 host_ip:8000/static/index.html
+
+# If there is any problem, make sure you are exposing the port 8000 from your unix machine
+sudo ufw allow 8000/tcp
