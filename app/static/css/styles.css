@@ -71,3 +71,21 @@ body {
     color: darkblue;
     margin-bottom: 5px;
 }
+
+#spinner {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.fadeOut {
+    opacity: 50%;
+}

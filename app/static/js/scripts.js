@@ -2,6 +2,7 @@ const form = document.getElementById('log-form');
 const logText = document.getElementById('log-text');
 const logContainer = document.getElementById('log-container');
 const pagination = document.getElementById('pagination');
+const pageNum = document.getElementById('page-num');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -10,22 +11,48 @@ form.addEventListener('submit', async (event) => {
     const keyword = document.getElementById('keyword').value;
 
     await fetchLogs(filename, n, keyword, 1);
+
 });
 
+function showSpinner() {
+    document.getElementById('spinner').style.display = "block";
+    document.getElementById('page-content').classList.add("fadeOut");
+}
+
+function hideSpinner() {
+    document.getElementById('spinner').style.display = "none";
+    document.getElementById('page-content').classList.remove("fadeOut");
+}
+
+function clearLogContainer() {
+    logContainer.innerHTML = '';
+    pageNum.innerHTML = '';
+    pagination.innerHTML = '';
+}
+
 async function fetchLogs(filename, n, keyword, page) {
+    showSpinner()
     const params = new URLSearchParams({ filename });
     if (n) params.append('n', n);
     if (keyword) params.append('keyword', keyword);
     if (page) params.append('page', page);
     const response = await fetch(`/api/v1/logs?${params.toString()}`);
     const resp = await response.json();
-
-    displayLogs(resp.data);
-    if (resp.data.length > 0) {
-        setupPagination(resp.page, resp.next_page, resp.previous_page, filename, n, keyword, resp.line_count);
+    if (response.status == 200) {
+        displayLogs(resp.data);
+        if (resp.data.length > 0) {
+            setupPagination(resp.page, resp.next_page, resp.previous_page, filename, n, keyword, resp.line_count);
+        } else {
+            clearLogContainer();
+        }
+    } else if (response.status == 404) {
+        alert(resp.message)
+        clearLogContainer();
     } else {
-        logText.innerHTML = '';
+        alert("Internal server error. Please try again later.")
+        clearLogContainer();
     }
+    hideSpinner()
 }
 
 function displayLogs(lines) {

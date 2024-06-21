@@ -8,6 +8,10 @@
 </head>
 <body>
     <h1>Log Viewer</h1>
+    <div id="spinner" style="display:none">
+        <img src="/static/img/loading.gif" id="spin-img" />
+    </div>
+    <div id="page-content">
     <form id="log-form">
         <label for="filename">Filename:</label>
         <input type="text" id="filename" name="filename" required>
@@ -23,6 +27,7 @@
     <div id="log-text">
         <div id="page-num"></div>
         <div id="log-container"></div>
+    </div>
     </div>
     <script src="/static/js/scripts.js"></script>
 </body>
