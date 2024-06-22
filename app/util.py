@@ -14,3 +14,9 @@ def get_keyword_metadata_filename(file_name, keyword):
 def get_page_key(page):
     return f"page{str(page)}"
 
+def clean_request_params(param):
+    if param is None:
+        return None
+    if param.strip() in ['null', '']:
+        return None
+    return param

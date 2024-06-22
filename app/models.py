@@ -12,3 +12,7 @@ class PaginatedResponse(BaseModel):
 class Response(BaseModel):
     status: int
     message: str
+
+class FileListResponse(BaseModel):
+    file_count: int
+    files: List[str]
