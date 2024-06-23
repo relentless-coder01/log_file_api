@@ -8,9 +8,9 @@ API_URL = "/api/v1/logs"
 client = TestClient(app)
 
 # Test files
-FILE1 = "small/file1.log"
-FILE3 = "small/file3.log"
-LARGE_REVIEWS_FILE = "large/amz_reviews/reviews_log.txt"
+FILE1 = "test_logs/small/file1.log"
+FILE3 = "test_logs/small/file3.log"
+LARGE_REVIEWS_FILE = "test_logs/large/amz_reviews/reviews_log.txt"
 
 def test_file_not_found():
     query_params = {
