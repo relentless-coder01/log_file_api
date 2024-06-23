@@ -42,10 +42,12 @@ body {
     text-align: center;
     color: chocolate;
     font-size: x-large;
+    margin-bottom: 10px;
 }
 #log-text {
     border: 1px solid gray;
     padding: 20px;
+    margin-top: 7px;
 }
 .log-line {
     padding-bottom: 5px;
@@ -88,4 +90,18 @@ body {
 
 .fadeOut {
     opacity: 50%;
+}
+
+.page-link-div {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.page-link {
+    font-size: x-large;
+    padding: 8px;
+}
+.active-page {
+    background-color: #389bd9;
+    color: white;
 }

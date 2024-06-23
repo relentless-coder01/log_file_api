@@ -3,6 +3,7 @@ const logText = document.getElementById('log-text');
 const logContainer = document.getElementById('log-container');
 const pagination = document.getElementById('pagination');
 const pageNum = document.getElementById('page-num');
+const pageLinks = document.getElementById('page-links');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -61,6 +62,7 @@ function displayLogs(lines) {
 
 function setupPagination(currentPage, next_page, previous_page, filename, n, keyword, lineCount) {
     pagination.innerHTML = '';
+    pageLinks.innerHTML = '';
     prev = currentPage - 1;
     next = currentPage + 1;
     document.getElementById('page-num').innerHTML = 'Page ' + currentPage + '(Lines: ' + lineCount + ')';
@@ -71,7 +73,22 @@ function setupPagination(currentPage, next_page, previous_page, filename, n, key
         prevButton.onclick = () => fetchLogs(filename, n, keyword, currentPage - 1);
         document.getElementById('pagination').appendChild(prevButton);
     }
-
+//    let pageLinkDiv = document.createElement('div');
+//    pageLinkDiv.className = "page-link-div";
+//    document.getElementById('pagination').appendChild(pageLinkDiv);
+    // Create Pagination numbers
+    for(let i = 1; i <= currentPage; i++) {
+        let pageLink = document.createElement("a");
+        pageLink.textContent = i;
+        pageLink.setAttribute("href", "#");
+        pageLink.onclick = () => fetchLogs(filename, n, keyword, i);
+        if(i == currentPage) {
+            pageLink.className = "page-link active-page";
+        } else {
+            pageLink.className = "page-link";
+        }
+        pageLinks.appendChild(pageLink);
+    }
     if (next_page != null) {
         let nextButton = document.createElement('button');
         nextButton.innerHTML = 'next';
