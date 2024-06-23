@@ -29,6 +29,7 @@ function clearLogContainer() {
     logContainer.innerHTML = '';
     pageNum.innerHTML = '';
     pagination.innerHTML = '';
+    pageLinks.innerHTML = '';
 }
 
 async function fetchLogs(filename, n, keyword, page) {
