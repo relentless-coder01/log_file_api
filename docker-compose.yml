@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --reload --bind 0.0.0.0:8000 --chdir app"
+    ports:
+      - 8000:8000

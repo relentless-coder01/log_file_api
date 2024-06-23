@@ -1,19 +1,9 @@
-# Dockerfile
-FROM python:3.10-slim
+FROM python:3.9
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+WORKDIR /log_file_api
 
-# Set working directory
-WORKDIR /app
+COPY ./requirements.txt /log_file_api/requirements.txt
 
-# Install dependencies
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /log_file_api/requirements.txt
 
-# Copy application code
-COPY . /app/
-
-# Run Gunicorn
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000"]
+COPY ./app /log_file_api/app

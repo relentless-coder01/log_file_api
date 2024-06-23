@@ -20,6 +20,9 @@ app = FastAPI()
 # Mount the static files directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Create a metadata directory
+os.makedirs(METADATA_DIR, exist_ok=True)
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     errors = exc.errors()
