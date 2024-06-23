@@ -7,6 +7,11 @@ from app.main import app
 API_URL = "/api/v1/logs"
 client = TestClient(app)
 
+# Test files
+FILE1 = "small/file1.log"
+FILE3 = "small/file3.log"
+LARGE_REVIEWS_FILE = "large/amz_reviews/reviews_log.txt"
+
 def test_file_not_found():
     query_params = {
         "filename": "file_not_exists.log"
@@ -24,7 +29,7 @@ def test_filename_missing():
 
 def test_invalid_n():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "n": "abj"
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -34,7 +39,7 @@ def test_invalid_n():
 
 def test_invalid_n_empty():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "n": ""
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -44,7 +49,7 @@ def test_invalid_n_empty():
 
 def test_read_small_file_whole():
     query_params = {
-        "filename": "file3.log"
+        "filename": FILE3
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
     assert response.status_code == 200
@@ -54,7 +59,7 @@ def test_read_small_file_whole():
 
 def test_read_small_file_n_lines():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "n": 10
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -65,7 +70,7 @@ def test_read_small_file_n_lines():
 
 def test_read_small_file_n_lines_with_pagination():
     query_params = {
-        "filename": "file1.log",
+        "filename": FILE1,
         "n": 120
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -90,7 +95,7 @@ def test_read_small_file_n_lines_with_pagination():
 
 def test_read_small_file_search():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "keyword": "yumm"
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -101,7 +106,7 @@ def test_read_small_file_search():
 
 def test_read_small_file_search_whole_word():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "keyword": "I"
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -112,7 +117,7 @@ def test_read_small_file_search_whole_word():
 
 def test_read_small_file_search_phrase():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "keyword": "It is"
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -123,7 +128,7 @@ def test_read_small_file_search_phrase():
 
 def test_read_small_file_search_n_lines():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "keyword": "to",
         "n": 3
     }
@@ -135,7 +140,7 @@ def test_read_small_file_search_n_lines():
 
 def test_read_small_file_search_spl_chars():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "keyword": "i'll",
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -146,7 +151,7 @@ def test_read_small_file_search_spl_chars():
 
 def test_read_small_file_search_empty():
     query_params = {
-        "filename": "file3.log",
+        "filename": FILE3,
         "keyword": "",
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -158,7 +163,7 @@ def test_read_small_file_search_empty():
 # Large file > 1GB
 def test_read_large_file_whole():
     query_params = {
-        "filename": "large/amz_reviews/reviews_log.txt"
+        "filename": LARGE_REVIEWS_FILE
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
     assert response.status_code == 200
@@ -168,7 +173,7 @@ def test_read_large_file_whole():
 
 def test_read_large_file_n_lines():
     query_params = {
-        "filename": "large/amz_reviews/reviews_log.txt",
+        "filename": LARGE_REVIEWS_FILE,
         "n": 25
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -179,7 +184,7 @@ def test_read_large_file_n_lines():
 
 def test_read_large_file_n_lines_with_pagination():
     query_params = {
-        "filename": "large/amz_reviews/reviews_log.txt",
+        "filename": LARGE_REVIEWS_FILE,
         "n": 135
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -204,7 +209,7 @@ def test_read_large_file_n_lines_with_pagination():
 
 def test_read_large_file_search():
     query_params = {
-        "filename": "large/amz_reviews/reviews_log.txt",
+        "filename": LARGE_REVIEWS_FILE,
         "keyword": "good"
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
@@ -215,7 +220,7 @@ def test_read_large_file_search():
 
 def test_read_large_file_search_keyword_in_first_line():
     query_params = {
-        "filename": "large/amz_reviews/reviews_log.txt",
+        "filename": LARGE_REVIEWS_FILE,
         "keyword": "good"
     }
     response = client.get(f"{API_URL}?{urlencode(query_params)}")
