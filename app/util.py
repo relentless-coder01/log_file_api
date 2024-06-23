@@ -1,4 +1,5 @@
 import os.path
+
 def check_file_exists(file_path):
     try:
         return os.path.isfile(file_path)

@@ -9,11 +9,11 @@ import time
 import json
 from fastapi.staticfiles import StaticFiles
 
-from read_search_file import ReadSearchFile
-from list_files import list_log_files
-from config import *
-from util import *
-from models import *
+from app.read_search_file import ReadSearchFile
+from app.list_files import list_log_files
+from app.config import *
+from app.util import *
+from app.models import *
 
 app = FastAPI()
 

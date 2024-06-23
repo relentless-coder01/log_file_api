@@ -1,5 +1,5 @@
 import os
-from config import LOG_ROOT_DIR
+from app.config import LOG_ROOT_DIR
 
 def list_log_files():
     files_with_paths = []

@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 from urllib.parse import urlencode
 
-from main import app
+from app.main import app
 
 API_URL = "/api/v1/logs"
 client = TestClient(app)

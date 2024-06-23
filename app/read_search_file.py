@@ -1,8 +1,8 @@
 import os
 import json
 import re
-from config import *
-from util import *
+from app.config import *
+from app.util import *
 
 class ReadSearchFile:
     def __init__(self, file_name, n=None, keyword=None):
