@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: Log File API
+  description: |-
+    The log file API fetches and searches the contents of log files in unix-based server machines. It retrieves newest lines first, and also supports specifying the number of lines to retrieve, keywords to search. 
+  version: '1.0'
+servers:
+  - url: http://localhost:8000/api/v1
+tags:
+  - name: logs
+    description: Retrieve log file
+paths:
+  /logs:
+    get:
+      tags:
+        - logs
+      summary: Retrieve log content
+      description: Retrieve list of log lines in newest first order, with ability to specify number of lines to retrieve and keywords to search.
+      operationId: retrieveLinesFromLogFile
+      parameters:
+        - name: filename
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          explode: true
+          schema:
+            type: string
+        - name: keyword
+          in: query
+          description: The keyword or phrase to search for within the log file.
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: n
+          in: query
+          description: Specifies the last number of lines or lines with keyword (if keyword specified) to be returned
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: available
+        - name: page
+          in: query
+          description: Specifies the page number for pagination.
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: available
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Logs'
+        '400':
+          description: If mandatory parameter is missing in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400_Error'  
+        '404':
+          description: If log file is not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404_Error'
+        '500':
+          description: Exception occurs while processing the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_Error'
+
+  /files:
+    get:
+      tags:
+        - logs
+      summary: List files in the logs directory
+      description: Retrieve list of log filenames with their relative paths inside the “var\log” folder.
+      operationId: getFiles
+      responses:
+        '200':
+          description: Successful response containing the log file names.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files'
+        '500':
+          description: Exception occurs while processing the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500_Error'
+
+components:
+  schemas:
+    Logs:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: current page number in the paginated response
+          format: int64
+          example: 1
+        page_size:
+          type: integer
+          description: page size in the current paginated response
+          format: int64
+          example: 5
+        line_count:
+          type: integer
+          description: line count in the current paginated response
+          format: int32
+          example: 5
+        data:
+          type: array
+          description: Log file content
+          items:
+            type: string
+          example: 
+            - Line 20 file content
+            - Line 19 file content
+        next_page:
+          type: string
+          description: URL for the Next page in the log file
+          example: next_page_url
+        previous_page:
+          type: string
+          description: URL for the Previous page in the log file
+          example: previous_page_url
+    Files:
+      type: object
+      properties:
+        file_count:
+          type: integer
+          example: 10
+        files:
+          type: array
+          description: list of files in the directory
+          items:
+            type: string
+            description: Name of the file
+          example:
+              - file1.log
+              - file2.log
+          
+    400_Error:
+      type: object
+      properties:
+        errors:
+          type: array
+          description: Erorr description
+          items:
+            type: object
+            properties:
+              field_name:
+                type: string
+                description: mandatory parameter missing in the request
+                example: filename
+              message:
+                type: string
+                description: Error message
+                example: Field required         
+    404_Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: status code for error
+          example: 404
+        message:
+          type: string
+          description: Error message
+          example: File not found.
+    500_Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: status code for error
+          example: 500
+        message:
+          type: string
+          description: Error message
+          example: Internal Server Error.
+      
+        
